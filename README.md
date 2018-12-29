@@ -49,6 +49,23 @@ cd /vagrant psql -d news -f newsdata.sql
 ```
 cd /vagrant/projectfolder python3 log-analysis-project.py
 ```
+
+### Views
+This project use two views to answer qustion 3:
+```
+CREATE view count_date AS
+SELECT TO_CHAR(log.time, 'Mon DD,YYYY') as date,COUNT(*) 
+FROM log 
+GROUP BY date 
+ORDER BY date;
+
+CREATE view count_error AS 
+SELECT TO_CHAR(log.time, 'Mon DD,YYYY') as date, COUNT(log.status) AS errors 
+FROM log 
+WHERE status !='200 OK'
+GROUP BY date 
+ORDER BY date;
+```
 ### Result
 
 After run the project you can check the output in OUTPUT.txt.
